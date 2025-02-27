@@ -1,0 +1,18 @@
+.task {
+    display: flex;
+    color: blue;
+    background-color: rgb(213, 213, 197);
+    font-size:24px;
+    padding: 20px;
+}
+
+.completed {
+    /* color: red; */
+    background-color: tomato;
+}
+.deletBtn{
+    
+}
+.checkBox{
+   
+}
