@@ -3,24 +3,6 @@ import AddTask from "./components/AddTask";
 import List from "./components/List";
 import AppStyle from "./App.module.css";
 import { v4 as uuidv4 } from "uuid";
-// fetch("https://dummyjson.com/todos")
-
-// {
-//   "todos": [
-//     {
-//       "id": 1,
-//       "todo": "Do something nice for someone I care about",
-//       "completed": true,
-//       "userId": 26
-//     },
-//     {...},
-//     {...}
-//     // 30 items
-//   ],
-//   "total": 150,
-//   "skip": 0,
-//   "limit": 30
-// }
 export const Status = {
   COMPLETED: "completed",
   PENDING: "pending",
