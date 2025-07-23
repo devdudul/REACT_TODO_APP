@@ -25,6 +25,11 @@ function App() {
       status: Status.PENDING,
       id: 3,
     },
+        {
+      taskName: "Task 4",
+      status: Status.PENDING,
+      id: 4,
+    },
   ]);
 
   function taskAdd(param) {
