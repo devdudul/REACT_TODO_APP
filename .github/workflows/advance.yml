@@ -1,0 +1,114 @@
+name: Full CI Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  # ------------------------
+  # ✅ 1. Code Analysis Job
+  # ------------------------
+  code-analysis:
+    name: Code Analysis (Lint)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npx eslint . --ext .js,.jsx,.ts,.tsx
+
+      - name: Run Stylelint
+        run: npx stylelint "**/*.css"
+
+  # ------------------------
+  # ✅ 2. Build Job
+  # ------------------------
+  build:
+    name: Build React App
+    runs-on: ubuntu-latest
+    needs: [code-analysis]  # Run after linting
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Project
+        run: npm run build
+
+      - name: List dist folder contents
+        run: ls -R dist
+
+  # ------------------------
+  # ✅ 3. Dummy Deploy Job
+  # ------------------------
+  deploy:
+    name: Deploy (Dummy)
+    runs-on: ubuntu-latest
+    needs: [build]  # Only runs after build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Simulate Deploy
+        run: |
+          echo "🚀 Starting deployment..."
+          sleep 2
+          echo "✅ Deployment successful (simulated)"
+
+  # ------------------------
+  # ✅ 4. Reporting Job (depends on all)
+  # ------------------------
+  reporting:
+    name: Report Status
+    runs-on: ubuntu-latest
+    needs: [code-analysis, build, deploy]
+
+    steps:
+      - name: Summarize Workflow
+        run: |
+          echo "✅ Code Linting: Passed"
+          echo "✅ Build: Successful"
+          echo "✅ Deploy: Simulated Success"
+          echo "📝 CI Workflow complete!"
+
+  # ------------------------
+  # ✅ 5. Parallel Job Demo
+  # ------------------------
+  unit-tests:
+    name: Unit Tests (Demo Parallel)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simulate Test
+        run: |
+          echo "🧪 Running unit tests..."
+          sleep 2
+          echo "✅ All tests passed!"
+
+  e2e-tests:
+    name: E2E Tests (Demo Parallel)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simulate E2E Test
+        run: |
+          echo "🧪 Running E2E tests..."
+          sleep 2
+          echo "✅ All E2E tests passed!"
