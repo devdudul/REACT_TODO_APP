@@ -2,7 +2,7 @@ name: Build React App
 
 on:
   push:
-    branches: [main]  # or use 'master' or any branch you want
+    branches: [master]  # or use 'master' or any branch you want
   pull_request:
 
 jobs:
